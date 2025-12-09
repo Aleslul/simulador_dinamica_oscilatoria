@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Dinámica Oscilatoria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+
+<body class="bg-slate-900 text-white min-h-screen">
+    <div class="container mx-auto p-4">
+        <header class="border-b border-gray-700 py-6 mb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <h1 class="text-4xl font-extrabold text-white text-center tracking-tight sm:text-5xl">
+                    Simulador de Dinámica Oscilatoria
+                </h1>
+                
+                <p class="mt-2 text-center text-xl text-indigo-400 font-medium">
+                    RA4 - Física II: Metodología de Resolución de Problemas
+                </p>
+                
+            </div>
+        </header>
+        
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Panel Principal: Canvas y Controles -->
+            <div class="lg:col-span-2 space-y-4">
+                <!-- Selector de Sistema -->
+                <div class="bg-slate-800 rounded-lg p-4 relative w-full">
+                    <label class="block text-xl font-bold mb-4">Tipo de Sistema:</label>
+                    <select id="systemSelector" class="w-full bg-slate-700 text-white p-2 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer">
+                        <option value="mas">Movimiento Armónico Simple (MAS)</option>
+                        <option value="penduloSimple">Péndulo Simple</option>
+                        <option value="penduloCompuesto">Péndulo Compuesto</option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-gray-400 translate-y-5">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Canvas para Animación -->
+                <div class="bg-slate-800 rounded-lg p-4">
+                    <canvas id="animationCanvas" width="800" height="400" class="w-full bg-slate-900 rounded"></canvas>
+                </div>
+
+                <!-- Controles -->
+                <div id="controlsContainer" class="bg-slate-800 rounded-lg p-4">
+
+                    <!-- Los controles se generan dinámicamente -->
+                </div>
+
+                <!-- Botones de Control -->
+                <div class="bg-slate-800 rounded-lg p-4">
+                    <div class="flex gap-2 flex-wrap justify-between">
+                        <button id="btnStart" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded flex-1"><b>Iniciar</b></button>
+                        <button id="btnPause" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded flex-1"><b>Pausar</b></button>
+                        <button id="btnReset" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded flex-1"><b>Reiniciar</b></button>
+                        <button id="btnSlowMotion" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded flex-1"><b>Cámara Lenta</b></button>
+                    </div>
+                </div>
+
+                <!-- Gráficas -->
+                <div class="bg-slate-800 rounded-lg p-4">
+                    <h2 class="text-xl font-bold mb-4">Gráficas en Tiempo Real</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <canvas id="positionChart"></canvas>
+                        </div>
+                        <div>
+                            <canvas id="velocityChart"></canvas>
+                        </div>
+                        <div>
+                            <canvas id="accelerationChart"></canvas>
+                        </div>
+                        <div>   
+                            <canvas id="energyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Lateral: RA1 -->
+            <div class="lg:col-span-1">
+                <div id="ra1Panel" class="bg-slate-800 rounded-lg p-4 h-full">
+                    <p class="text-gray-400">Seleccione un sistema para ver la metodología RA4</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-[2rem]">
+
+        </div>
+        <footer class="bg-gray-900 text-gray-400 py-10 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+                    <div class="col-span-2 md:col-span-1">
+                        <h3 class="text-white font-bold text-lg mb-4">Simulador RA4</h3>
+                        <p class="text-sm">
+                            Aplicación educativa para Física II sobre Dinámica Oscilatoria (MAS, Péndulo Simple/Compuesto).
+                        </p>
+                        <p class="text-xs mt-4 text-gray-500">© 2025 Proyecto Educativo</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Navegación</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#simulador" class="hover:text-white transition duration-200">Ir al Simulador</a></li>
+                            <li><a href="#metodologia" class="hover:text-white transition duration-200">Metodología RA4</a></li>
+                            <li><a href="https://github.com/FabriAV/Simulador-F-sica.git" class="hover:text-white transition duration-200">Documentación</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Tecnología</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><span class="font-semibold">Frontend:</span> TypeScript & Vite</li>
+                            <li><span class="font-semibold">Estilo:</span> TailwindCSS</li>
+                            <li><span class="font-semibold">Visualización:</span> Canvas & Chart.js</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Desarrollado por</h3>
+                        <ul class="space-y-1 text-sm grid grid-cols-2 gap-x-4">
+                            <li><span class="text-white">Acosta Vásquez, Cesar Fabricio</span></li>
+                            <li><span class="text-white">Bayona Paredes, Esther Zuleyka</span></li>
+                            <li><span class="text-white">Becerra Montenegro, Alessandro</span></li>
+                            <li><span class="text-white">Becerra Montejo, Enzo Giovanni</span></li>
+
+                            <li><span class="text-white">Huamán Reyes, Santiago Benjamín</span></li>
+                            <li><span class="text-white">Loayza Acosta, Matthew Gonzalo</span></li>
+                            <li><span class="text-white">Martínez Cruz, Carlos Wilmer</span></li>
+                            <li><span class="text-white">Wong Díaz, Fernando Jacob<span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
