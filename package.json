@@ -1,0 +1,19 @@
+{
+  "name": "fisica-simulador",
+  "version": "1.0.0",
+  "description": "Simulador interactivo de dinámica oscilatoria - RA1 Física II",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vite": "^7.2.7"
+  }
+}
