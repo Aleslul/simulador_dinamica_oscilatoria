@@ -1,7 +1,3 @@
-/**
- * Clase base abstracta para sistemas oscilatorios
- * Implementa la metodología RA1 para resolución de problemas
- */
 export abstract class BaseOscillator {
   protected time: number = 0;
   protected isRunning: boolean = false;
@@ -45,14 +41,14 @@ export abstract class BaseOscillator {
   }
 
   /**
-   * Obtiene los datos conocidos del sistema (RA1 - Paso 1)
+   * Obtiene los datos conocidos del sistema 
    */
   getKnownData(): Record<string, { value: number; unit: string }> {
     return this.getParameters();
   }
 
   /**
-   * Obtiene las incógnitas del sistema (RA1 - Paso 2)
+   * Obtiene las incógnitas del sistema 
    */
   getUnknowns(): Record<string, { value: number; unit: string }> {
     return {
@@ -66,12 +62,12 @@ export abstract class BaseOscillator {
   }
 
   /**
-   * Obtiene las ecuaciones físicas relevantes (RA1 - Paso 3)
+   * Obtiene las ecuaciones físicas relevantes 
    */
   abstract getEquations(): string[];
 
   /**
-   * Obtiene los cálculos paso a paso (RA1 - Paso 4)
+   * Obtiene los cálculos paso a paso 
    */
   getCalculations(): string[] {
     const ω = this.getAngularFrequency();

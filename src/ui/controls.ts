@@ -62,7 +62,11 @@ export class Controls {
       <div class="space-y-4">
         <div>
           <label class="block text-sm mb-2">Longitud (L): <span id="longitudValue" class="text-blue-400">1.0</span> m</label>
+<<<<<<< HEAD
           <input type="range" id="sliderLongitud" min="0.5" max="2.6" step="0.1" value="1.0" 
+=======
+          <input type="range" id="sliderLongitud" min="0.5" max="3" step="0.1" value="1.0" 
+>>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
                  class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
         </div>
         <div>

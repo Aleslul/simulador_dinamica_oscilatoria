@@ -10,7 +10,6 @@ export class Charts {
   //TODO: Agregando limitacion de frames
   private lastChartUpdate: number = 0;
   private updateIntervalMS: number = 100;
-
   private positionChart: any = null;
   private velocityChart: any = null;
   private accelerationChart: any = null;
@@ -45,6 +44,7 @@ export class Charts {
             },
             ticks: { color: '#cbd5e1' },
             grid: { color: '#475569' },
+
           },
           y: {
             title: {
@@ -121,7 +121,6 @@ export class Charts {
                 text: 'Velocidad (m/s)',
                 color: '#e2e8f0'
               }
-
             }
           }
         }
@@ -217,6 +216,7 @@ export class Charts {
     this.lastChartUpdate = currentTime;
     this.addData(oscillator);
 
+
     // Actualizar gráficas
     if (this.positionChart) {
       this.positionChart.data.datasets[0].data = this.timeData.map((t, i) => ({ x: t, y: this.positionData[i] }));
@@ -300,5 +300,7 @@ export class Charts {
       this.totalEnergyData.shift();
     }
   }
+
+
 }
 
