@@ -7,6 +7,10 @@ declare const Chart: any;
  * Sistema de gráficas en tiempo real usando Chart.js
  */
 export class Charts {
+  //TODO: Agregando limitacion de frames
+  private lastChartUpdate: number = 0;
+  private updateIntervalMS: number = 100;
+
   private positionChart: any = null;
   private velocityChart: any = null;
   private accelerationChart: any = null;
@@ -40,7 +44,7 @@ export class Charts {
               color: '#e2e8f0'
             },
             ticks: { color: '#cbd5e1' },
-            grid: { color: '#475569' }
+            grid: { color: '#475569' },
           },
           y: {
             title: {
@@ -48,7 +52,9 @@ export class Charts {
               color: '#e2e8f0'
             },
             ticks: { color: '#cbd5e1' },
-            grid: { color: '#475569' }
+            grid: { color: '#475569' },
+            suggestedMin: -10.0,
+            suggestedMax: 10.0,
           }
         },
         plugins: {
@@ -115,6 +121,7 @@ export class Charts {
                 text: 'Velocidad (m/s)',
                 color: '#e2e8f0'
               }
+
             }
           }
         }
@@ -201,33 +208,14 @@ export class Charts {
   }
 
   update(oscillator: BaseOscillator): void {
-    const t = oscillator.getTime();
-    const x = oscillator.getPosition();
-    const v = oscillator.getVelocity();
-    const a = oscillator.getAcceleration();
-    const Ec = oscillator.getKineticEnergy();
-    const Ep = oscillator.getPotentialEnergy();
-    const Et = oscillator.getTotalEnergy();
-
-    // Agregar nuevos datos
-    this.timeData.push(t);
-    this.positionData.push(x);
-    this.velocityData.push(v);
-    this.accelerationData.push(a);
-    this.kineticEnergyData.push(Ec);
-    this.potentialEnergyData.push(Ep);
-    this.totalEnergyData.push(Et);
-
-    // Limitar el número de puntos de datos
-    if (this.timeData.length > this.maxDataPoints) {
-      this.timeData.shift();
-      this.positionData.shift();
-      this.velocityData.shift();
-      this.accelerationData.shift();
-      this.kineticEnergyData.shift();
-      this.potentialEnergyData.shift();
-      this.totalEnergyData.shift();
+    const currentTime = performance.now();
+    if (currentTime - this.lastChartUpdate < this.updateIntervalMS) {
+      this.addData(oscillator);
+      return;
     }
+
+    this.lastChartUpdate = currentTime;
+    this.addData(oscillator);
 
     // Actualizar gráficas
     if (this.positionChart) {
@@ -279,6 +267,37 @@ export class Charts {
       this.energyChart.data.datasets[1].data = [];
       this.energyChart.data.datasets[2].data = [];
       this.energyChart.update();
+    }
+  }
+
+  private addData(oscillator: BaseOscillator): void {
+    const t = oscillator.getTime();
+    const x = oscillator.getPosition();
+    const v = oscillator.getVelocity();
+    const a = oscillator.getAcceleration();
+    const Ec = oscillator.getKineticEnergy();
+    const Ep = oscillator.getPotentialEnergy();
+    const Et = oscillator.getTotalEnergy();
+
+        // Agregar nuevos datos
+    this.timeData.push(t);
+    this.positionData.push(x);
+    this.velocityData.push(v);
+    this.accelerationData.push(a);
+    this.kineticEnergyData.push(Ec);
+    this.potentialEnergyData.push(Ep);
+    this.totalEnergyData.push(Et);
+
+    
+    // Limitar el número de puntos de datos
+    if (this.timeData.length > this.maxDataPoints) {
+      this.timeData.shift();
+      this.positionData.shift();
+      this.velocityData.shift();
+      this.accelerationData.shift();
+      this.kineticEnergyData.shift();
+      this.potentialEnergyData.shift();
+      this.totalEnergyData.shift();
     }
   }
 }
