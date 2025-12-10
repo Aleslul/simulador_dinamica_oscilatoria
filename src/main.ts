@@ -29,8 +29,6 @@ class SimulatorApp {
     this.setupEventListeners();
 
     // Inicializar con MAS
-    
-
     this.controls.createMASControls();
     const oscillator = this.controls.getOscillator();
     if (oscillator) {
@@ -91,6 +89,11 @@ class SimulatorApp {
   private start(): void {
     const oscillator = this.controls.getOscillator();
     if (!oscillator) return;
+
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
 
     oscillator.start();
     this.lastTime = performance.now() / 1000;
