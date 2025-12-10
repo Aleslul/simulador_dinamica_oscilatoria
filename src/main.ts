@@ -4,9 +4,7 @@ import { Charts } from './ui/charts.js';
 import { Renderer } from './ui/renderer.js';
 import { RA1Panel } from './ui/RA1Panel.js';
 
-/**
- * Aplicación principal del simulador de dinámica oscilatoria
- */
+
 class SimulatorApp {
   private controls: Controls;
   private charts: Charts;
@@ -17,7 +15,6 @@ class SimulatorApp {
   private isSlowMotion: boolean = false;
 
   constructor() {
-    // Inicializar componentes
     this.controls = new Controls('controlsContainer', (oscillator) => {
       this.onParameterChange(oscillator);
     });
@@ -25,15 +22,8 @@ class SimulatorApp {
     this.renderer = new Renderer('animationCanvas');
     this.ra1Panel = new RA1Panel('ra1Panel');
 
-    // Configurar eventos
     this.setupEventListeners();
 
-    // Inicializar con MAS
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
     this.controls.createMASControls();
     const oscillator = this.controls.getOscillator();
     if (oscillator) {
@@ -43,14 +33,12 @@ class SimulatorApp {
   }
 
   private setupEventListeners(): void {
-    // Selector de sistema
     const systemSelector = document.getElementById('systemSelector') as HTMLSelectElement;
     systemSelector?.addEventListener('change', (e) => {
       const systemType = (e.target as HTMLSelectElement).value;
       this.switchSystem(systemType);
     });
 
-    // Botones de control
     const btnStart = document.getElementById('btnStart');
     const btnPause = document.getElementById('btnPause');
     const btnReset = document.getElementById('btnReset');
@@ -95,14 +83,12 @@ class SimulatorApp {
     const oscillator = this.controls.getOscillator();
     if (!oscillator) return;
 
-<<<<<<< HEAD
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
     }
 
-=======
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
+
     oscillator.start();
     this.lastTime = performance.now() / 1000;
     this.animate();
@@ -155,20 +141,16 @@ class SimulatorApp {
     const deltaTime = currentTime - this.lastTime;
     this.lastTime = currentTime;
 
-    // Actualizar física
     oscillator.update(deltaTime);
 
-    // Renderizar
     this.renderer.render();
     this.charts.update(oscillator);
     this.ra1Panel.update(oscillator);
 
-    // Continuar animación
     this.animationId = requestAnimationFrame(this.animate);
   };
 }
 
-// Inicializar aplicación cuando el DOM esté listo
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new SimulatorApp();
