@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Simulador de Dinámica Oscilatoria - RA4 Física II
-=======
-# Simulador de Dinámica Oscilatoria - RA1 Física II
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
 
 Aplicación web educativa para simular y visualizar sistemas oscilatorios con metodología RA1 de resolución de problemas.
 
@@ -16,11 +12,8 @@ Aplicación web educativa para simular y visualizar sistemas oscilatorios con me
 - **Visualización en tiempo real:**
   - Animación física con HTML5 Canvas
   - Gráficas dinámicas de posición, velocidad, aceleración y energía
-<<<<<<< HEAD
   - Panel RA4 con metodología de resolución de problemas
-=======
-  - Panel RA1 con metodología de resolución de problemas
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
+
 
 - **Controles interactivos:**
   - Sliders para modificar parámetros físicos
@@ -76,15 +69,11 @@ src/
 └── main.ts                 # Aplicación principal
 ```
 
-<<<<<<< HEAD
 ## Metodología RA4
 
 El simulador implementa la metodología RA4 de resolución de problemas:
-=======
-## Metodología RA1
 
-El simulador implementa la metodología RA1 de resolución de problemas:
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
+
 
 1. **Identificación de datos conocidos** - Parámetros del sistema
 2. **Identificación de incógnitas** - Variables a calcular
@@ -120,9 +109,6 @@ El simulador implementa la metodología RA1 de resolución de problemas:
 
 ## Licencia
 
-<<<<<<< HEAD
 Proyecto educativo para Física II - RA4
-=======
-Proyecto educativo para Física II - RA1
->>>>>>> 85fdda8500df533dff6f570ba1e9d29129ddedd8
+
 
