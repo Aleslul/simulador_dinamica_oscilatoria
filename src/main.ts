@@ -126,8 +126,8 @@ class SimulatorApp {
     if (btn) {
       btn.textContent = this.isSlowMotion ? 'Cámara Normal' : 'Cámara Lenta';
       btn.className = this.isSlowMotion 
-        ? 'bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded flex-1 font-bold'
-        : 'bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded flex-1 font-bold';
+        ? 'bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded flex-1 font-bold text-white'
+        : 'bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded flex-1 font-bold text-white';
     }
   }
 

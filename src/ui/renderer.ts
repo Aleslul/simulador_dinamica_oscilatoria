@@ -2,7 +2,8 @@ import { BaseOscillator } from '../core/physics.js';
 import { MAS } from '../models/mas.js';
 import { PenduloSimple } from '../models/penduloSimple.js';
 import { PenduloCompuesto } from '../models/penduloCompuesto.js';
-import { start } from 'repl';
+// Nota: 'start' de 'repl' no se usa aquí y puede causar errores en navegador, lo he comentado por si acaso
+// import { start } from 'repl'; 
 
 /**
  * Renderizador de animaciones físicas usando HTML5 Canvas
@@ -47,8 +48,8 @@ export class Renderer {
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Limpiar canvas
-    this.ctx.fillStyle = '#0f172a';
+    // Limpiar canvas (Fondo BLANCO para proyector)
+    this.ctx.fillStyle = '#ffffff';
     this.ctx.fillRect(0, 0, width, height);
 
     // Dibujar según el tipo de oscilador
@@ -74,30 +75,30 @@ export class Renderer {
     const A = mas.getParameters()['Amplitud (A)'].value;
     const scale = Math.min(width, height) / (A * 2 + 2);
 
-    // Dibujar resorte
-    this.ctx.strokeStyle = '#475569';
+    // Dibujar resorte (Gris oscuro)
+    this.ctx.strokeStyle = '#334155'; // slate-700
     this.ctx.lineWidth = 3;
     const springX = centerX - A * scale;
     const springLength = A * 2 * scale;
     this.drawSpring(springX, centerY, springLength, 20);
 
-    // Dibujar pared
-    this.ctx.fillStyle = '#64748b';
+    // Dibujar pared (Gris medio)
+    this.ctx.fillStyle = '#94a3b8'; // slate-400
     this.ctx.fillRect(springX - 20, centerY - 50, 20, 100);
 
-    // Dibujar masa
+    // Dibujar masa (Azul fuerte)
     const massX = centerX + x * scale;
-    const massSize = this.getMassRadius(mas);     //TODO: Cambiando massSize estatico por uno variable segun masa con la funcion getMassRadius() (Valor original: 20)
-    this.ctx.fillStyle = '#3b82f6';
+    const massSize = this.getMassRadius(mas);    
+    this.ctx.fillStyle = '#2563eb'; // blue-600
     this.ctx.beginPath();
     this.ctx.rect(massX - massSize / 2, centerY - massSize / 2, massSize, massSize);
     this.ctx.fill();
-    this.ctx.strokeStyle = '#1e40af';
+    this.ctx.strokeStyle = '#1e3a8a'; // blue-900 (borde)
     this.ctx.lineWidth = 2;
     this.ctx.stroke();
 
-    // Dibujar línea de referencia
-    this.ctx.strokeStyle = '#334155';
+    // Dibujar línea de referencia (Gris punteado)
+    this.ctx.strokeStyle = '#cbd5e1'; // slate-300
     this.ctx.setLineDash([5, 5]);
     this.ctx.beginPath();
     this.ctx.moveTo(centerX, centerY - 100);
@@ -124,32 +125,29 @@ export class Renderer {
     const massX = pivotX + L * scale * Math.sin(θ);
     const massY = pivotY + L * scale * Math.cos(θ);
 
-    // Dibujar hilo
-    this.ctx.strokeStyle = '#64748b';
+    // Dibujar hilo (Negro/Gris muy oscuro)
+    this.ctx.strokeStyle = '#1e293b'; // slate-800
     this.ctx.lineWidth = 2;
     this.ctx.beginPath();
     this.ctx.moveTo(pivotX, pivotY);
     this.ctx.lineTo(massX, massY);
     this.ctx.stroke();
 
-    // Dibujar punto de suspensión
-    this.ctx.fillStyle = '#94a3b8';
+    // Dibujar punto de suspensión (Gris)
+    this.ctx.fillStyle = '#64748b'; // slate-500
     this.ctx.beginPath();
     this.ctx.arc(pivotX, pivotY, 5, 0, 2 * Math.PI);
     this.ctx.fill();
 
-    // Dibujar masa
-    const massSize = this.getMassRadius(pendulo);    //TODO: Cambiando massSize estatico por uno variable segun masa con la funcion getMassRadius() (Valor original: 20)
-    this.ctx.fillStyle = '#41f63bff';
+    // Dibujar masa (Verde fuerte)
+    const massSize = this.getMassRadius(pendulo);
+    this.ctx.fillStyle = '#16a34a'; // green-600
     this.ctx.beginPath();
     this.ctx.arc(massX, massY, massSize, 0, 2 * Math.PI);
     this.ctx.fill();
-    this.ctx.strokeStyle = '#259021';
+    this.ctx.strokeStyle = '#14532d'; // green-900 (borde)
     this.ctx.lineWidth = 2;
     this.ctx.stroke();
-
-    // Dibujar trayectoria (NO SIRVE)
-    // this.drawPendulumTrajectory(pivotX, pivotY, L * scale);
   }
 
   // FUNCION PARA RENDERIZAR LA SIMULACION DE PENDULO COMPUESTO
@@ -167,8 +165,8 @@ export class Renderer {
     const cmX = pivotX + d * scale * Math.sin(θ);
     const cmY = pivotY + d * scale * Math.cos(θ);
 
-    // Dibujar barra
-    this.ctx.strokeStyle = '#64748b';
+    // Dibujar barra (Gris oscuro)
+    this.ctx.strokeStyle = '#334155'; // slate-700
     this.ctx.lineWidth = 4;
     this.ctx.beginPath();
     this.ctx.moveTo(pivotX, pivotY);
@@ -176,30 +174,29 @@ export class Renderer {
     this.ctx.stroke();
 
     // Dibujar punto de suspensión
-    this.ctx.fillStyle = '#94a3b8';
+    this.ctx.fillStyle = '#64748b'; // slate-500
     this.ctx.beginPath();
     this.ctx.arc(pivotX, pivotY, 6, 0, 2 * Math.PI);
     this.ctx.fill();
 
-    // Dibujar cuerpo rígido (barra extendida)
+    // Dibujar cuerpo rígido (barra extendida) - MAGENTA OSCURO
     const barLength = d * scale * 1.5;
     const barEndX = pivotX + barLength * Math.sin(θ);
     const barEndY = pivotY + barLength * Math.cos(θ);
 
-    //TODO: CAMBIANDO ESTILO (ESTILO ORIGINAL: #475569)
-    this.ctx.strokeStyle = '#ea00ffff';
+    this.ctx.strokeStyle = '#c026d3'; // fuchsia-600
     this.ctx.lineWidth = 6;
     this.ctx.beginPath();
     this.ctx.moveTo(pivotX, pivotY);
     this.ctx.lineTo(barEndX, barEndY);
     this.ctx.stroke();
 
-    // Dibujar centro de masa
-    this.ctx.fillStyle = '#ef4444';
+    // Dibujar centro de masa (ROJO FUERTE)
+    this.ctx.fillStyle = '#dc2626'; // red-600
     this.ctx.beginPath();
     this.ctx.arc(cmX, cmY, this.getMassRadius(pendulo), 0, 2 * Math.PI);
     this.ctx.fill();
-    this.ctx.strokeStyle = '#dc2626';
+    this.ctx.strokeStyle = '#7f1d1d'; // red-900
     this.ctx.lineWidth = 2;
     this.ctx.stroke();
   }
@@ -224,7 +221,8 @@ export class Renderer {
   }
 
   private drawTrajectory(centerX: number, centerY: number, scale: number, A: number): void {
-    this.ctx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
+    // Azul claro semi-transparente para trayectoria
+    this.ctx.strokeStyle = 'rgba(37, 99, 235, 0.4)'; // blue-600 con opacidad
     this.ctx.lineWidth = 2;
     this.ctx.beginPath();
     for (let i = 0; i < 100; i++) {
@@ -240,13 +238,10 @@ export class Renderer {
     this.ctx.stroke();
   }
   
-  // FUNCION PARA GRAFICAR LA TRAYECTORIA DEL PENDULO (NO SIRVE)
   private drawPendulumTrajectory(pivotX: number, pivotY: number, radius: number): void {
-    this.ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)';
+    this.ctx.strokeStyle = 'rgba(37, 99, 235, 0.2)';
     this.ctx.lineWidth = 2;
     this.ctx.beginPath();
-
-    //TODO: cambiando los valores en radianes (Valores originales: -0.5, 0.5)
     this.ctx.arc(pivotX, pivotY, radius, -0.5, 0.5);
     this.ctx.stroke();
   }
@@ -257,10 +252,17 @@ export class Renderer {
 
     if (!this.oscillator) return;
 
-    this.ctx.fillStyle = '#334155';
-    this.roundRect(10, 10, 250, 120, borderRadius);
+    // Caja de info: Fondo blanco (casi transparente) con borde gris
+    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    this.ctx.strokeStyle = '#cbd5e1'; // Borde slate-300
+    this.ctx.lineWidth = 1;
+    
+    // Primero dibujamos el rectángulo para usarlo como path del stroke
+    this.roundRect(10, 10, 250, 120, borderRadius); 
+    this.ctx.stroke(); // Dibujar borde
 
-    this.ctx.fillStyle = '#e2e8f0';
+    // Texto NEGRO
+    this.ctx.fillStyle = '#0f172a'; // slate-900
     this.ctx.font = '14px monospace';
     this.ctx.fillText(`Tiempo: ${this.oscillator.getTime().toFixed(2)} s`, 20, 30);
     this.ctx.fillText(`Posición: ${this.oscillator.getPosition().toFixed(3)} m`, 20, 50);
@@ -291,31 +293,35 @@ export class Renderer {
     let currentY = startY + 20;
     let elements: {color: string, label: string}[] = [];
 
-    // Elementos comunes:
-    elements.push({color: '#94a3b8', label: 'Pivote / Suspension'});
+    // Elementos comunes (Color Gris Oscuro):
+    elements.push({color: '#64748b', label: 'Pivote / Suspension'});
 
     if (!this.oscillator) return;
 
     if (oscillator instanceof MAS) {
-      // Colores usados en renderMAS
-      elements.push({color: 'rgba(59, 130, 246, 0.2)', label: 'Trayectoria'});
-      elements.push({ color: '#3b82f6', label: 'Masa (m)' });
-      elements.push({ color: '#64748b', label: 'Resorte' });
+      elements.push({color: 'rgba(37, 99, 235, 0.4)', label: 'Trayectoria'});
+      elements.push({ color: '#2563eb', label: 'Masa (m)' }); // Azul
+      elements.push({ color: '#334155', label: 'Resorte' }); // Gris Oscuro
     } else if (oscillator instanceof PenduloCompuesto) {
-      // Colores usados en renderPenduloCompuesto
-      elements.push({ color: '#ef4444', label: 'Centro de Masa (CM)' }); // Rojo
-      elements.push({ color: '#ea00ffff', label: 'Cuerpo Rígido' }); // Morado/Magenta
+      elements.push({ color: '#dc2626', label: 'Centro de Masa (CM)' }); // Rojo
+      elements.push({ color: '#c026d3', label: 'Cuerpo Rígido' }); // Magenta
     } else if (oscillator instanceof PenduloSimple) {
-      // Colores usados en renderPenduloSimple
-      elements.push({ color: '#41f63bff', label: 'Masa Puntual (m)' }); // Azul
-      elements.push({ color: '#64748b', label: 'Hilo' }); 
+      elements.push({ color: '#16a34a', label: 'Masa Puntual (m)' }); // Verde
+      elements.push({ color: '#1e293b', label: 'Hilo' }); // Negro
     }
 
     const boxHeight = elements.length * 20 + 30; 
-    this.ctx.fillStyle = '#334155';
+    
+    // Caja Leyenda: Fondo blanco semi-transparente
+    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    this.ctx.strokeStyle = '#cbd5e1';
+    this.ctx.lineWidth = 1;
+    
     this.roundRect(startX, startY, 250, boxHeight, borderRadius);
+    this.ctx.stroke(); // Borde
 
-    this.ctx.fillStyle = '#e2e8f0';
+    // Título Leyenda en NEGRO
+    this.ctx.fillStyle = '#0f172a';
     this.ctx.font = 'bold 14px monospace';
     this.ctx.fillText('Leyenda:', startX + 10, startY + 20);
     currentY += 15;
@@ -327,7 +333,8 @@ export class Renderer {
         this.ctx.arc(startX + 20, currentY, 5, 0, 2 * Math.PI);
         this.ctx.fill();
 
-        this.ctx.fillStyle = '#e2e8f0';
+        // Texto de items en GRIS OSCURO
+        this.ctx.fillStyle = '#334155';
         this.ctx.fillText(item.label, startX + 35, currentY + 5);
         currentY += 20;
     }
@@ -350,4 +357,3 @@ export class Renderer {
       ctx.fill();
   }
 }
-

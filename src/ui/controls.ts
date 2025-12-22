@@ -21,31 +21,33 @@ export class Controls {
   }
 
   createMASControls(): void {
-    const mas = new MAS(1.0, 10.0, 2.0, 0);
+    const mas = new MAS(1.0, 10.0, 0.36, 0);
     this.oscillator = mas;
 
+    // Cambio: Textos oscuros (slate-900/700), Valores en azul fuerte (blue-600)
+    // Cambio: Sliders con fondo claro (slate-200) y acento índigo
     this.container.innerHTML = `
-      <h3 class="text-xl font-bold mb-4">Parámetros del MAS</h3>
+      <h3 class="text-xl font-bold text-slate-900 mb-4">Parámetros del MAS</h3>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm mb-2">Masa (m): <span id="masaValue" class="text-blue-400">1.0</span> kg</label>
-          <input type="range" id="sliderMasa" min="0.1" max="5" step="0.1" value="1.0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Masa (m): <span id="masaValue" class="text-blue-600 font-bold">1.0</span> kg</label>
+          <input type="range" id="sliderMasa" min="0.1" max="5" step="0.01" value="1.0" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Constante Elástica (k): <span id="kValue" class="text-blue-400">10.0</span> N/m</label>
-          <input type="range" id="sliderK" min="1" max="50" step="1" value="10" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Constante Elástica (k): <span id="kValue" class="text-blue-600 font-bold">10.0</span> N/m</label>
+          <input type="range" id="sliderK" min="1" max="50" step="0.01" value="10" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Amplitud (A): <span id="amplitudValue" class="text-blue-400">2.0</span> m</label>
-          <input type="range" id="sliderAmplitud" min="0.5" max="5" step="0.1" value="2.0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Amplitud (A): <span id="amplitudValue" class="text-blue-600 font-bold">0.36</span> m</label>
+          <input type="range" id="sliderAmplitud" min="0.50" max="5.00" step="0.01" value="0.36" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Fase Inicial (φ): <span id="faseValue" class="text-blue-400">0.0</span> rad</label>
-          <input type="range" id="sliderFase" min="0" max="6.28" step="0.1" value="0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Fase Inicial (φ): <span id="faseValue" class="text-blue-600 font-bold">0.0</span> rad</label>
+          <input type="range" id="sliderFase" min="0" max="6.28" step="0.01" value="0" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
       </div>
     `;
@@ -54,31 +56,31 @@ export class Controls {
   }
 
   createPenduloSimpleControls(): void {
-    const pendulo = new PenduloSimple(1.0, 1.0, 9.81, 0.3);
+    const pendulo = new PenduloSimple(0.559, 1.0, 9.81, 0.3);
     this.oscillator = pendulo;
 
     this.container.innerHTML = `
-      <h3 class="text-xl font-bold mb-4">Parámetros del Péndulo Simple</h3>
+      <h3 class="text-xl font-bold text-slate-900 mb-4">Parámetros del Péndulo Simple</h3>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm mb-2">Longitud (L): <span id="longitudValue" class="text-blue-400">1.0</span> m</label>
-          <input type="range" id="sliderLongitud" min="0.5" max="2.6" step="0.1" value="1.0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Longitud (L): <span id="longitudValue" class="text-blue-600 font-bold">0.559</span> m</label>
+          <input type="range" id="sliderLongitud" min="0.5" max="2.6" step="0.1" value="0.559" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Masa (m): <span id="masaValue" class="text-blue-400">1.0</span> kg</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Masa (m): <span id="masaValue" class="text-blue-600 font-bold">1.0</span> kg</label>
           <input type="range" id="sliderMasa" min="0.1" max="5" step="0.1" value="1.0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Gravedad (g): <span id="gravedadValue" class="text-blue-400">9.81</span> m/s²</label>
-          <input type="range" id="sliderGravedad" min="1" max="20" step="0.1" value="9.81" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Gravedad (g): <span id="gravedadValue" class="text-blue-600 font-bold">9.81</span> m/s²</label>
+          <input type="range" id="sliderGravedad" min="1" max="20" step="0.01" value="9.81" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Ángulo Inicial (θ₀): <span id="anguloValue" class="text-blue-400">0.3</span> rad</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Ángulo Inicial (θ₀): <span id="anguloValue" class="text-blue-600 font-bold">0.3</span> rad</label>
           <input type="range" id="sliderAngulo" min="0.1" max="0.5" step="0.01" value="0.3" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
       </div>
     `;
@@ -91,32 +93,32 @@ export class Controls {
     this.oscillator = pendulo;
 
     this.container.innerHTML = `
-      <h3 class="text-xl font-bold mb-4">Parámetros del Péndulo Compuesto</h3>
+      <h3 class="text-xl font-bold text-slate-900 mb-4">Parámetros del Péndulo Compuesto</h3>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm mb-2">Momento de Inercia (I): <span id="inerciaValue" class="text-blue-400">0.5</span> kg·m²</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Momento de Inercia (I): <span id="inerciaValue" class="text-blue-600 font-bold">0.5</span> kg·m²</label>
           <input type="range" id="sliderInercia" min="0.1" max="2" step="0.1" value="0.5" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Distancia al Centro de Masa (d): <span id="distanciaValue" class="text-blue-400">0.5</span> m</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Distancia al Centro de Masa (d): <span id="distanciaValue" class="text-blue-600 font-bold">0.5</span> m</label>
           <input type="range" id="sliderDistancia" min="0.1" max="1.5" step="0.1" value="0.5" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Masa (m): <span id="masaValue" class="text-blue-400">1.0</span> kg</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Masa (m): <span id="masaValue" class="text-blue-600 font-bold">1.0</span> kg</label>
           <input type="range" id="sliderMasa" min="0.1" max="5" step="0.1" value="1.0" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Gravedad (g): <span id="gravedadValue" class="text-blue-400">9.81</span> m/s²</label>
-          <input type="range" id="sliderGravedad" min="1" max="20" step="0.1" value="9.81" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+          <label class="block text-sm font-medium text-slate-700 mb-2">Gravedad (g): <span id="gravedadValue" class="text-blue-600 font-bold">9.81</span> m/s²</label>
+          <input type="range" id="sliderGravedad" min="1" max="20" step="0.01" value="9.81" 
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
         <div>
-          <label class="block text-sm mb-2">Ángulo Inicial (θ₀): <span id="anguloValue" class="text-blue-400">0.3</span> rad</label>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Ángulo Inicial (θ₀): <span id="anguloValue" class="text-blue-600 font-bold">0.3</span> rad</label>
           <input type="range" id="sliderAngulo" min="0.1" max="0.5" step="0.01" value="0.3" 
-                 class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
         </div>
       </div>
     `;
@@ -241,4 +243,3 @@ export class Controls {
     return this.oscillator;
   }
 }
-
